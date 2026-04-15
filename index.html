@@ -56,12 +56,12 @@
   <!-- Desktop -->
   <div class="desktop">
 
-    <div class="icon">
+    <div class="icon" onclick="openWindow('aboutWindow')">
       🖥️
       <div>About Me</div>
     </div>
 
-    <div class="icon">
+    <div class="icon" onclick="openWindow('projectsWindow')">
       📁
       <div>Projects</div>
     </div>
@@ -96,7 +96,7 @@
 
   </div>
 
-  <!-- Additional Test Icon + Window -->
+  <!-- Additional About Window -->
   <div id="aboutWindow" class="window" style="position:absolute; top:100px; left:150px; display:none;">
    <div class="title-bar">
      <div class="title-bar-text">about.txt</div>
