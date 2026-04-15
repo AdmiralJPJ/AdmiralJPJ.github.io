@@ -173,13 +173,37 @@
     openWindow('mainWindow');
     makeDraggable();
   };
-  
+
+  function updateClock() {
+    const now = new Date();
+
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+
+    document.getElementById("clock").innerText =
+        hours + ":" + minutes;
+  }
+
+  setInterval(updateClock, 1000);
+  updateClock();
+
   </script>
 
   <!-- Taskbar -->
   <div class="taskbar">
     <button class="start-button">Start</button>
     <span>jdtOS v1.0</span>
+
+    <div style="flex:1"></div>
+
+    <!-- email (left of clock area) -->
+    <span style="margin-right: 15px;">📧 <a href="mailto:jdt@email.com">jdt@osogood.com</a></span>
+
+    <!-- clock -->
+    <span id="clock"></span>
+
   </div>
 
 </body>
