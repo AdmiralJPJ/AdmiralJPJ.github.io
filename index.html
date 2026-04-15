@@ -96,7 +96,7 @@
 
   </div>
 
-  <!-- Additional Window -->
+  <!-- Additional Test Icon + Window -->
   <div id="aboutWindow" class="window" style="position:absolute; top:100px; left:150px; display:none;">
    <div class="title-bar">
      <div class="title-bar-text">about.txt</div>
@@ -112,6 +112,22 @@
      <p>I’m a cyber policy student interested in legislation and national security.</p>
    </div>
   </div>
+
+
+  <!-- Window Control Script-->
+  <script>
+  let zIndex = 1;
+
+  function openWindow(id) {
+    const win = document.getElementById(id);
+    win.style.display = 'block';
+    win.style.zIndex = zIndex++;
+  }
+
+  function closeWindow(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+  </script>
 
   <!-- Taskbar -->
   <div class="taskbar">
