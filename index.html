@@ -1,10 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Cyber Policy Site</title>
+  <meta charset="UTF-8">
+  <title>Jack's Cyber Policy Terminal</title>
+
+  <!-- 98.css CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/98.css">
+
+  <style>
+    body {
+      background: teal;
+      margin: 0;
+      font-family: "MS Sans Serif", sans-serif;
+    }
+
+    .desktop {
+      padding: 20px;
+    }
+
+    .icon {
+      width: 80px;
+      text-align: center;
+      color: white;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .window {
+      width: 500px;
+    }
+
+    .taskbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: silver;
+      border-top: 2px solid white;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .start-button {
+      margin-right: 10px;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Welcome</h1>
-    <p>This is my site.</p>
+
+  <!-- Desktop -->
+  <div class="desktop">
+
+    <div class="icon">
+      🖥️
+      <div>About Me</div>
+    </div>
+
+    <div class="icon">
+      📁
+      <div>Projects</div>
+    </div>
+
+    <!-- Main Window -->
+    <div class="window" style="position:absolute; top:100px; left:150px;">
+      <div class="title-bar">
+        <div class="title-bar-text">jack.exe</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="window-body">
+        <h3>Welcome</h3>
+        <p>This is my cyber policy and legislative portfolio.</p>
+
+        <hr>
+
+        <h4>Current Focus</h4>
+        <ul>
+          <li>Cybersecurity Policy</li>
+          <li>AI Regulation</li>
+          <li>Critical Infrastructure</li>
+        </ul>
+
+        <button>View Work</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Taskbar -->
+  <div class="taskbar">
+    <button class="start-button">Start</button>
+    <span>jackOS v1.0</span>
+  </div>
+
 </body>
 </html>
