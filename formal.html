@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JDT — Cybersecurity & Policy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Variables ─── */
+    :root {
+      --bg:       #f5f2eb;
+      --ink:      #1a1a18;
+      --muted:    #6b6760;
+      --rule:     #c8c3b8;
+      --accent:   #1a3a5c;
+      --accent2:  #8b0000;
+      --max-w:    860px;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── Base ─── */
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--accent2); }
+
+    /* ─── Layout ─── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Header / Nav ─── */
+    header {
+      border-bottom: 2px solid var(--ink);
+      padding: 18px 0 14px;
+    }
+
+    header .container {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .site-title {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    nav a:hover { color: var(--ink); }
+    nav a.active {
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1px;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 64px 0 52px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .hero-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.2;
+      max-width: 680px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      max-width: 520px;
+      font-size: 1rem;
+    }
+
+    .hero-links {
+      margin-top: 28px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-links a {
+      text-decoration: none;
+      padding: 7px 16px;
+      border: 1.5px solid var(--ink);
+      color: var(--ink);
+      transition: background 0.15s, color 0.15s;
+    }
+    .hero-links a:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+    .hero-links a.secondary {
+      border-color: var(--rule);
+      color: var(--muted);
+    }
+    .hero-links a.secondary:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+      background: transparent;
+    }
+
+    /* ─── Sections ─── */
+    section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .section-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .section-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    /* ─── About ─── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .about-body p + p { margin-top: 14px; }
+
+    .about-details {
+      border-left: 2px solid var(--rule);
+      padding-left: 20px;
+    }
+
+    .detail-item {
+      margin-bottom: 18px;
+    }
+
+    .detail-item .detail-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .detail-item .detail-value {
+      font-size: 0.92rem;
+    }
+
+    /* ─── Work / Projects ─── */
+    .project-list { display: flex; flex-direction: column; gap: 0; }
+
+    .project-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 20px;
+      align-items: start;
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+    }
+    .project-item:last-child { border-bottom: 1px solid var(--rule); }
+
+    .project-num {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding-top: 3px;
+    }
+
+    .project-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .project-tag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--rule);
+      padding: 3px 8px;
+      white-space: nowrap;
+      margin-top: 3px;
+    }
+
+    /* ─── Writing / Notes ─── */
+    .writing-list { display: flex; flex-direction: column; }
+
+    .writing-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid var(--rule);
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .writing-item:last-child { border-bottom: 1px solid var(--rule); }
+    .writing-item:hover .writing-title { color: var(--accent); }
+
+    .writing-title { font-size: 0.95rem; }
+
+    .writing-meta {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.68rem;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ─── Contact ─── */
+    .contact-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .contact-body p { color: var(--muted); font-size: 0.95rem; }
+
+    .contact-links { display: flex; flex-direction: column; gap: 10px; }
+
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--rule);
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 0.9rem;
+    }
+    .contact-link:hover { color: var(--accent); }
+
+    .contact-link-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      padding: 28px 0;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .back-link {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .about-grid, .contact-body { grid-template-columns: 1fr; gap: 28px; }
+      .project-item { grid-template-columns: 48px 1fr; }
+      .project-tag { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ Header ═══ -->
+  <header>
+    <div class="container">
+      <a href="formal.html" class="site-title">J. D. Tyndall</a>
+      <nav>
+        <a href="#about" class="active">About</a>
+        <a href="#work">Work</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
+        <a href="index.html">← Old Site</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ Hero ═══ -->
+  <main>
+    <div class="hero">
+      <div class="container">
+        <p class="hero-label">Cybersecurity &amp; Policy Portfolio</p>
+        <h1>Policy, law, and the<br><em>future of cyberspace.</em></h1>
+        <p class="hero-sub">
+          [One or two sentences about who you are and what you care about — legislation, national security, AI governance, etc.]
+        </p>
+        <div class="hero-links">
+          <a href="#work">View My Work</a>
+          <a href="https://github.com/AdmiralJPJ" target="_blank" class="secondary">GitHub ↗</a>
+          <a href="https://www.linkedin.com/in/john-d-tyndall/" target="_blank" class="secondary">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ About ═══ -->
+    <section id="about">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">§ 01 — About</span>
+          <div class="section-rule"></div>
+        </div>
+        <div class="about-grid">
+          <div class="about-body">
+            <h2>Background</h2>
+            <p>
+              [Write a paragraph about your background — where you study, your academic focus, what got you interested in cybersecurity policy.]
+            </p>
+            <p>
+              [Second paragraph — what drives you. Maybe something about the intersection of law, technology, and national security. Your perspective or thesis on the space.]
+            </p>
+            <p>
+              [Optional third paragraph — anything else relevant: prior experience, organizations you're part of, etc.]
+            </p>
+          </div>
+          <aside class="about-details">
+            <div class="detail-item">
+              <div class="detail-label">Status</div>
+              <div class="detail-value">[Student / Researcher / etc.]</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Focus Areas</div>
+              <div class="detail-value">
+                Cyber Policy<br>
+                AI Governance<br>
+                National Security<br>
+                Legislation
+              </div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Location</div>
+              <div class="detail-value">[City, State]</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Currently Reading</div>
+              <div class="detail-value">[Book or report you're into right now]</div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Work / Projects ═══ -->
+    <section id="work">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">§ 02 — Work</span>
+          <div class="section-rule"></div>
+        </div>
+        <h2>Projects &amp; Research</h2>
+
+        <div class="project-list">
+
+          <div class="project-item">
+            <span class="project-num">01</span>
+            <div>
+              <div class="project-title">[Project Title]</div>
+              <div class="project-desc">[One sentence description of what this project is or does.]</div>
+            </div>
+            <span class="project-tag">Policy</span>
+          </div>
+
+          <div class="project-item">
+            <span class="project-num">02</span>
+            <div>
+              <div class="project-title">[Project Title]</div>
+              <div class="project-desc">[One sentence description of what this project is or does.]</div>
+            </div>
+            <span class="project-tag">Research</span>
+          </div>
+
+          <div class="project-item">
+            <span class="project-num">03</span>
+            <div>
+              <div class="project-title">[Project Title]</div>
+              <div class="project-desc">[One sentence description of what this project is or does.]</div>
+            </div>
+            <span class="project-tag">Technical</span>
+          </div>
+
+          <div class="project-item">
+            <span class="project-num">04</span>
+            <div>
+              <div class="project-title">[Project Title]</div>
+              <div class="project-desc">[One sentence description of what this project is or does.]</div>
+            </div>
+            <span class="project-tag">Legislation</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Writing / Notes ═══ -->
+    <section id="writing">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">§ 03 — Writing</span>
+          <div class="section-rule"></div>
+        </div>
+        <h2>Essays &amp; Notes</h2>
+
+        <div class="writing-list">
+          <a href="#" class="writing-item">
+            <span class="writing-title">[Essay or memo title]</span>
+            <span class="writing-meta">Mon YYYY &nbsp;·&nbsp; Policy</span>
+          </a>
+          <a href="#" class="writing-item">
+            <span class="writing-title">[Essay or memo title]</span>
+            <span class="writing-meta">Mon YYYY &nbsp;·&nbsp; AI</span>
+          </a>
+          <a href="#" class="writing-item">
+            <span class="writing-title">[Essay or memo title]</span>
+            <span class="writing-meta">Mon YYYY &nbsp;·&nbsp; Legislation</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ Contact ═══ -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">§ 04 — Contact</span>
+          <div class="section-rule"></div>
+        </div>
+        <div class="contact-body">
+          <div>
+            <h2>Get in Touch</h2>
+            <p style="margin-top:10px;">
+              [A short, inviting line — open to conversations about policy, research collaborations, internship inquiries, etc.]
+            </p>
+          </div>
+          <div class="contact-links">
+            <a href="mailto:jdt@osogood.com" class="contact-link">
+              <span class="contact-link-label">Email</span>
+              <span>jdt@osogood.com</span>
+            </a>
+            <a href="https://github.com/AdmiralJPJ" target="_blank" class="contact-link">
+              <span class="contact-link-label">GitHub</span>
+              <span>AdmiralJPJ ↗</span>
+            </a>
+            <a href="https://www.linkedin.com/in/john-d-tyndall/" target="_blank" class="contact-link">
+              <span class="contact-link-label">LinkedIn</span>
+              <span>john-d-tyndall ↗</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ═══ Footer ═══ -->
+  <footer>
+    <div class="container">
+      <p>© 2025 J. D. Tyndall — All rights reserved.</p>
+      <a href="index.html" class="back-link">← Back to jdtOS</a>
+    </div>
+  </footer>
+
+</body>
+</html>
