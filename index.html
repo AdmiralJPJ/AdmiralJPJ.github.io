@@ -198,10 +198,12 @@
         });
     });
   }
-
+  //initial setup
   window.onload = function() {
     openWindow('mainWindow');
     makeDraggable();
+
+    document.getElementById("taskbar-msg").textContent = messages[0];
   };
 
   function updateClock() {
@@ -246,7 +248,7 @@
   }
 
   // Set first message immediately on load, then rotate
-  document.getElementById("taskbar-msg").textContent = messages[0];
+  
   setInterval(rotateMessage, 30000);
 
   </script>
