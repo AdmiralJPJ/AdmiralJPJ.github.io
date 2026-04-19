@@ -48,6 +48,18 @@
       align-items: center;
     }
 
+    .taskbar-marquee {
+      font-family: "MS Sans Serif", sans-serif;
+      font-size: 12px;
+      color: #222;
+      padding: 0 12px;
+      transition: opacity 0.5s ease;
+    }
+
+    .taskbar-marquee.fade {
+      opacity: 0;
+    }
+
     .start-button {
       margin-right: 10px;
     }
@@ -206,6 +218,36 @@
 
   setInterval(updateClock, 1000);
   updateClock();
+
+  const messages = [
+  "Cybersecurity policy matters.",
+  "Legislation shapes the digital world.",
+  "AI governance is an open problem.",
+  "The internet is infrastructure.",
+  "Welcome to jdtOS v1.0"
+  ];
+
+  let msgIndex = 0;
+
+  function rotateMessage() {
+    const el = document.getElementById("taskbar-msg");
+
+    // Fade out
+    el.classList.add("fade");
+
+    setTimeout(() => {
+      // Swap text while invisible
+      msgIndex = (msgIndex + 1) % messages.length;
+      el.textContent = messages[msgIndex];
+
+      // Fade back in
+      el.classList.remove("fade");
+    }, 500); // matches the CSS transition duration
+  }
+
+  // Set first message immediately on load, then rotate
+  document.getElementById("taskbar-msg").textContent = messages[0];
+  setInterval(rotateMessage, 30000);
 
   </script>
 
