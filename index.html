@@ -204,6 +204,9 @@
     makeDraggable();
 
     document.getElementById("taskbar-msg").textContent = messages[0];
+    setInterval(updateClock, 1000);
+    updateClock();
+    setInterval(rotateMessage, 30000);
   };
 
   function updateClock() {
@@ -218,8 +221,7 @@
         hours + ":" + minutes;
   }
 
-  setInterval(updateClock, 1000);
-  updateClock();
+  
 
   const messages = [
   "Cybersecurity policy matters.",
@@ -246,10 +248,6 @@
       el.classList.remove("fade");
     }, 500); // matches the CSS transition duration
   }
-
-  // Set first message immediately on load, then rotate
-  
-  setInterval(rotateMessage, 30000);
 
   </script>
 
