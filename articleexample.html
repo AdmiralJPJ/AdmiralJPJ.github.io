@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Article Title — J. D. Tyndall</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ─── Variables (shared with formal.html) ─── */
+    :root {
+      --bg:       #f5f2eb;
+      --ink:      #1a1a18;
+      --muted:    #6b6760;
+      --rule:     #c8c3b8;
+      --accent:   #1a3a5c;
+      --accent2:  #8b0000;
+      --max-w:    860px;
+      --article-w: 680px;
+    }
+
+    /* ─── Reset ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── Base ─── */
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "IBM Plex Serif", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    a:hover { color: var(--accent2); }
+
+    /* ─── Layout ─── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ─── Header / Nav — identical to formal.html ─── */
+    header {
+      border-bottom: 2px solid var(--ink);
+      padding: 18px 0 14px;
+    }
+
+    header .container {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .site-title {
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 600;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    nav {
+      display: flex;
+      gap: 28px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    nav a:hover { color: var(--ink); }
+    nav a.active {
+      color: var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 1px;
+    }
+
+    /* ─── Article Header ─── */
+    .article-header {
+      padding: 56px 0 44px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .article-section-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    /* Tags row */
+    .article-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .tag {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--rule);
+      padding: 3px 9px;
+    }
+
+    /* Article title */
+    .article-title {
+      font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+      font-weight: 600;
+      line-height: 1.2;
+      max-width: var(--article-w);
+      margin-bottom: 18px;
+    }
+
+    /* Dek / subtitle */
+    .article-dek {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--muted);
+      max-width: var(--article-w);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* Byline bar */
+    .byline {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .byline-author {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+    }
+
+    .byline-author span {
+      color: var(--muted);
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .byline-meta {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .byline-dot {
+      color: var(--rule);
+    }
+
+    /* ─── Article Body ─── */
+    .article-body {
+      padding: 52px 0 64px;
+    }
+
+    .article-body .container {
+      display: grid;
+      grid-template-columns: var(--article-w) 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* Prose column */
+    .prose { max-width: var(--article-w); }
+
+    /* Paragraphs */
+    .prose p {
+      margin-bottom: 1.5em;
+    }
+
+    /* Drop cap on first paragraph */
+    .prose p.lead::first-letter {
+      font-size: 3.8em;
+      font-weight: 600;
+      float: left;
+      line-height: 0.82;
+      margin-right: 6px;
+      margin-top: 6px;
+      color: var(--accent);
+    }
+
+    /* ─── Inline formatting ─── */
+    .prose strong { font-weight: 600; }
+    .prose em { font-style: italic; }
+
+    /* ─── Section heading inside article ─── */
+    .prose h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin: 2.2em 0 0.6em;
+      padding-top: 1.4em;
+      border-top: 1px solid var(--rule);
+    }
+
+    /* ─── Blockquote ─── */
+    .prose blockquote {
+      border-left: 3px solid var(--accent);
+      margin: 2em 0;
+      padding: 4px 0 4px 24px;
+    }
+
+    .prose blockquote p {
+      font-size: 1.08rem;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 0.5em;
+    }
+
+    .prose blockquote cite {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-style: normal;
+    }
+
+    /* ─── Pull quote ─── */
+    .prose .pull-quote {
+      border-top: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      padding: 22px 0;
+      margin: 2.4em 0;
+      font-size: 1.22rem;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ─── Image block ─── */
+    .prose figure {
+      margin: 2.2em 0;
+    }
+
+    .prose figure .img-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      /* Replace with: <img src="your-image.jpg" alt="Description"> */
+    }
+
+    .prose figure figcaption {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .prose figure figcaption .credit {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--rule);
+      margin-left: 8px;
+    }
+
+    /* ─── Footnote-style aside ─── */
+    .prose aside.note {
+      background: transparent;
+      border: 1px solid var(--rule);
+      padding: 16px 18px;
+      margin: 2em 0;
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .prose aside.note strong {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    /* ─── Sidebar (right column) ─── */
+    .article-sidebar {
+      padding-top: 4px;
+      position: sticky;
+      top: 32px;
+    }
+
+    .sidebar-block {
+      border-left: 2px solid var(--rule);
+      padding-left: 20px;
+      margin-bottom: 36px;
+    }
+
+    .sidebar-label {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .sidebar-block p {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .related-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .related-list li {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--rule);
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+
+    .related-list li:first-child { border-top: 1px solid var(--rule); }
+
+    .related-list li a {
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .related-list li a:hover { color: var(--accent); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 2px solid var(--ink);
+      padding: 28px 0;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer p {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .back-link {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--muted);
+    }
+    .back-link:hover { color: var(--ink); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 700px) {
+      .article-body .container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .article-sidebar { position: static; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══ Header — matches formal.html exactly ═══ -->
+  <header>
+    <div class="container">
+      <a href="formal.html" class="site-title">J. D. Tyndall</a>
+      <nav>
+        <a href="formal.html#about">About</a>
+        <a href="formal.html#work">Work</a>
+        <a href="formal.html#writing" class="active">Writing</a>
+        <a href="formal.html#contact">Contact</a>
+        <a href="index.html">← Main Site</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══ Article Header ═══ -->
+  <main>
+    <div class="article-header">
+      <div class="container">
+
+        <!-- Section label + tags -->
+        <p class="article-section-label">§ 03 — Writing</p>
+        <div class="article-tags">
+          <span class="tag">Policy</span>
+          <span class="tag">AI Governance</span>
+          <span class="tag">National Security</span>
+          <!-- Add or remove tags as needed -->
+        </div>
+
+        <!-- Title -->
+        <h1 class="article-title">
+          The Governance Gap: Why Existing Frameworks Fall Short of the AI Moment
+        </h1>
+
+        <!-- Dek / subtitle -->
+        <p class="article-dek">
+          A short description of what this piece argues or examines — one or two sentences that pull a reader in and signal the scope of the essay.
+        </p>
+
+        <!-- Byline bar -->
+        <div class="byline">
+          <div class="byline-author">
+            <span>Author</span>
+            J. D. Tyndall
+          </div>
+          <div class="byline-meta">
+            June 2026 <span class="byline-dot">&nbsp;·&nbsp;</span> 8 min read
+          </div>
+          <!-- Optional: PDF / download link -->
+          <div style="margin-left: auto;">
+            <a href="#" style="font-family:'IBM Plex Mono',monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; color:var(--muted);">Download PDF ↓</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ Article Body ═══ -->
+    <div class="article-body">
+      <div class="container">
+
+        <!-- ── Main prose column ── -->
+        <article class="prose">
+
+          <!-- Drop-cap lead paragraph -->
+          <p class="lead">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          </p>
+
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, <strong>totam rem aperiam eaque ipsa</strong> quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+          </p>
+
+          <!-- Inline link example -->
+          <p>
+            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. See, for example, <a href="https://www.cisa.gov" target="_blank">CISA's 2024 strategic framework ↗</a>, which gestures toward this problem without resolving it. Neque porro quisquam est, qui <em>dolorem ipsum quia dolor sit</em>, amet, consectetur, adipisci velit.
+          </p>
+
+          <!-- Section heading -->
+          <h3>The Structural Problem</h3>
+
+          <p>
+            Ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat.
+          </p>
+
+          <!-- Image block -->
+          <figure>
+            <!-- Replace .img-placeholder with: <img src="your-image.jpg" alt="Descriptive alt text"> -->
+            <div class="img-placeholder">[ Image — replace with &lt;img&gt; tag ]</div>
+            <figcaption>
+              A caption describing what is shown in the image and why it matters to the piece.
+              <span class="credit">Source / Credit</span>
+            </figcaption>
+          </figure>
+
+          <p>
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui <strong>officia deserunt mollitia animi</strong>, id est laborum et dolorum fuga.
+          </p>
+
+          <!-- Blockquote -->
+          <blockquote>
+            <p>
+              "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus."
+            </p>
+            <cite>Name, Title or Source, Year</cite>
+          </blockquote>
+
+          <p>
+            Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores.
+          </p>
+
+          <!-- Section heading -->
+          <h3>A Framework for Moving Forward</h3>
+
+          <!-- Pull quote -->
+          <p class="pull-quote">
+            "The question is not whether to regulate — it is whether the architecture of regulation can keep pace with the architecture of the systems it seeks to govern."
+          </p>
+
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia <em>consequuntur magni dolores</em> eos qui ratione voluptatem sequi nesciunt. Ut labore et dolore magnam aliquam quaerat voluptatem.
+          </p>
+
+          <!-- Second image block -->
+          <figure>
+            <div class="img-placeholder">[ Image — replace with &lt;img&gt; tag ]</div>
+            <figcaption>
+              Another figure caption. This one might reference a chart, diagram, or photograph.
+              <span class="credit">Source / Credit</span>
+            </figcaption>
+          </figure>
+
+          <p>
+            Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.
+          </p>
+
+          <!-- Aside / editor's note box -->
+          <aside class="note">
+            <strong>Editor's Note</strong>
+            Use this box for caveats, definitions, methodology notes, or any parenthetical content that deserves visibility but would disrupt the main argument if left inline. Keep it brief.
+          </aside>
+
+          <p>
+            Deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.
+          </p>
+
+          <!-- Section heading -->
+          <h3>Conclusion</h3>
+
+          <p>
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et <strong><em>voluptates repudiandae sint et molestiae</em></strong> non recusandae.
+          </p>
+
+          <p>
+            Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+
+        </article>
+
+        <!-- ── Sidebar ── -->
+        <aside class="article-sidebar">
+
+          <div class="sidebar-block">
+            <p class="sidebar-label">About the Author</p>
+            <p>[A sentence or two about yourself — your academic affiliation, research focus, or current role.]</p>
+          </div>
+
+          <div class="sidebar-block">
+            <p class="sidebar-label">Related Writing</p>
+            <ul class="related-list">
+              <li><a href="#">[Related essay or memo title]</a></li>
+              <li><a href="#">[Related essay or memo title]</a></li>
+              <li><a href="#">[Related essay or memo title]</a></li>
+            </ul>
+          </div>
+
+          <div class="sidebar-block">
+            <p class="sidebar-label">Key Sources</p>
+            <ul class="related-list">
+              <li><a href="#" target="_blank">Source or report name ↗</a></li>
+              <li><a href="#" target="_blank">Source or report name ↗</a></li>
+              <li><a href="#" target="_blank">Source or report name ↗</a></li>
+            </ul>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══ Footer ═══ -->
+  <footer>
+    <div class="container">
+      <p>© 2026 J. D. Tyndall — All rights reserved.</p>
+      <a href="formal.html" class="back-link">← Back to Portfolio</a>
+    </div>
+  </footer>
+
+</body>
+</html>
