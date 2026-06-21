@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#F4A565" />
+<title>Happy Father's Day 🚤</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;0,900;1,600&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-cream:#FCEBC8;
+    --sun-gold:#F7B733;
+    --sunset-peach:#F4A565;
+    --water-mid:#2A8C8F;
+    --deep-lake:#0E3B43;
+    --pine:#1F3A2E;
+    --buoy-orange:#E8552A;
+    --cream:#FBF3E1;
+    --dock-wood:#8B5A2B;
+    --dock-wood-dark:#5C3A1E;
+  }
+
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    font-family:'Work Sans', sans-serif;
+    background:linear-gradient(180deg, var(--pine) 0%, var(--deep-lake) 100%);
+    color:var(--cream);
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  main{max-width:560px; margin:0 auto; position:relative;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    aspect-ratio:4/5;
+    max-height:680px;
+    overflow:hidden;
+    isolation:isolate;
+  }
+  .hero svg.scene{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    display:block;
+  }
+
+  .fireflies{position:absolute; inset:0; z-index:1; pointer-events:none;}
+  .fireflies span{
+    position:absolute; width:4px; height:4px; border-radius:50%;
+    background:var(--sun-gold);
+    box-shadow:0 0 6px 2px rgba(247,183,51,.8);
+    animation:twinkle 3.4s ease-in-out infinite;
+  }
+
+  .hero-overlay{
+    position:absolute; left:0; right:0; bottom:0; z-index:2;
+    padding:64px 24px 30px;
+    background:linear-gradient(to top, rgba(14,59,67,.85), rgba(14,59,67,0) 75%);
+    text-align:center;
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    font-size:.68rem;
+    color:var(--sun-gold);
+    margin:0 0 8px;
+  }
+  .headline{
+    font-family:'Fraunces', serif;
+    font-weight:900;
+    font-size:clamp(2.3rem, 9.5vw, 3.4rem);
+    line-height:1.0;
+    letter-spacing:-0.01em;
+    margin:0 0 8px;
+    color:var(--cream);
+  }
+  .headline .accent{
+    display:block;
+    font-style:italic;
+    font-weight:600;
+    color:var(--sun-gold);
+    font-size:.85em;
+    margin-top:2px;
+  }
+  .tap-hint{
+    font-size:.82rem;
+    color:var(--cream);
+    opacity:.8;
+    margin:6px 0 0;
+    transition:opacity .5s ease;
+  }
+  .hero.interacted .tap-hint{opacity:0;}
+
+  .boat-hit{
+    position:absolute;
+    left:63%; top:74%;
+    width:34%; height:16%;
+    transform:translate(-50%,-50%);
+    background:transparent;
+    border:none;
+    padding:0; margin:0;
+    cursor:pointer;
+    z-index:3;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .boat-hit:focus-visible{
+    outline:2px solid var(--sun-gold);
+    outline-offset:4px;
+    border-radius:10px;
+  }
+
+  .confetti-layer{position:absolute; inset:0; z-index:4; overflow:hidden; pointer-events:none;}
+  .confetti-piece{
+    position:absolute;
+    top:55%;
+    width:8px; height:8px;
+    border-radius:2px;
+    animation:confettiFall 1.4s ease-out forwards;
+  }
+
+  /* ---------- SVG scene pieces ---------- */
+  .sun-rays{
+    transform-origin:200px 130px;
+    animation:sunRotate 70s linear infinite;
+  }
+  .scene-fade{opacity:0; transform:translateY(10px); transition:opacity .9s ease, transform .9s ease;}
+  body.loaded .scene-fade{opacity:1; transform:translateY(0);}
+  .scene-fade.d1{transition-delay:.05s;}
+  .scene-fade.d2{transition-delay:.2s;}
+  .scene-fade.d3{transition-delay:.35s;}
+  .scene-fade.d4{transition-delay:.5s;}
+  .scene-fade.d5{transition-delay:.65s;}
+
+  .boat-group{animation:bob 3.2s ease-in-out infinite;}
+  .hero.celebrating .boat-group{animation:boatDash 2.6s ease-in-out forwards;}
+
+  .skier-group{
+    opacity:0;
+    transform:translateX(-26px);
+    transition:opacity .7s ease .25s, transform .7s ease .25s;
+  }
+  .hero.celebrating .skier-group{opacity:1; transform:translateX(0);}
+  .hero.celebrating .spray{animation:sprayBounce .45s ease-in-out infinite alternate;}
+
+  .rope{
+    stroke-dasharray:90;
+    stroke-dashoffset:90;
+    transition:stroke-dashoffset .6s ease .3s;
+  }
+  .hero.celebrating .rope{stroke-dashoffset:0;}
+
+  .hero.celebrating .headline{animation:popText .6s ease;}
+
+  /* ---------- MESSAGE CARD ---------- */
+  .message-section{
+    padding:0 20px 28px;
+    margin-top:-46px;
+    position:relative;
+    z-index:2;
+  }
+  .postcard{
+    background:var(--cream);
+    border-radius:6px;
+    box-shadow:0 16px 34px rgba(14,59,67,.4);
+    padding:30px 22px 22px;
+    position:relative;
+  }
+  .postcard::before{
+    content:'';
+    position:absolute;
+    top:-14px; left:50%;
+    transform:translateX(-50%);
+    width:10px; height:26px;
+    background:var(--dock-wood);
+    border-radius:3px;
+    box-shadow:0 3px 5px rgba(0,0,0,.3);
+  }
+  .postcard label{
+    display:block;
+    font-family:'Space Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    font-size:.68rem;
+    color:var(--pine);
+    margin-bottom:10px;
+  }
+  .message-input{
+    width:100%;
+    min-height:170px;
+    border:none;
+    resize:none;
+    background:transparent;
+    font-family:'Work Sans', sans-serif;
+    font-size:1rem;
+    line-height:1.6;
+    color:var(--deep-lake);
+    outline:none;
+    border-bottom:1px dashed rgba(14,59,67,.3);
+    padding-bottom:8px;
+  }
+  .message-input:focus{
+    border-bottom:1px solid var(--sun-gold);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    text-align:center;
+    padding:8px 24px calc(34px + env(safe-area-inset-bottom));
+  }
+  .wave-divider{display:block; width:60%; max-width:220px; margin:0 auto 18px;}
+  .signature{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--cream);
+  }
+  .sig-name{
+    border-bottom:1px dotted var(--sun-gold);
+    padding-bottom:1px;
+  }
+  .sig-name:focus-visible{outline:2px solid var(--sun-gold); outline-offset:3px;}
+  .stamp{
+    font-family:'Space Mono', monospace;
+    font-size:.65rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--sun-gold);
+    opacity:.7;
+    margin-top:10px;
+  }
+
+  /* ---------- KEYFRAMES ---------- */
+  @keyframes bob{
+    0%,100%{transform:translateY(0) rotate(-1deg);}
+    50%{transform:translateY(-5px) rotate(1deg);}
+  }
+  @keyframes sunRotate{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
+  @keyframes twinkle{ 0%,100%{opacity:.15;} 50%{opacity:.9;} }
+  @keyframes boatDash{
+    0%{transform:translate(0,0) rotate(-1deg);}
+    30%{transform:translate(60px,-5px) rotate(1deg);}
+    60%{transform:translate(118px,2px) rotate(-1deg);}
+    100%{transform:translate(140px,0) rotate(0deg);}
+  }
+  @keyframes sprayBounce{
+    0%{transform:translateY(0) scaleY(1); opacity:.75;}
+    100%{transform:translateY(-4px) scaleY(1.3); opacity:1;}
+  }
+  @keyframes popText{
+    0%{transform:scale(1);}
+    35%{transform:scale(1.07);}
+    65%{transform:scale(.98);}
+    100%{transform:scale(1);}
+  }
+  @keyframes confettiFall{
+    0%{transform:translate(0,0) rotate(0deg); opacity:1;}
+    100%{transform:translate(var(--dx,0px), 260px) rotate(var(--rot,360deg)); opacity:0;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .boat-group, .skier-group, .sun-rays, .spray, .headline, .scene-fade, .confetti-piece{
+      animation:none !important;
+      transition:none !important;
+    }
+    .scene-fade{opacity:1; transform:none;}
+    .skier-group{opacity:0;}
+    .hero.celebrating .skier-group{opacity:1;}
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <section class="hero" id="hero">
+    <svg class="scene" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#FCEBC8"/>
+          <stop offset="55%" stop-color="#F7B733"/>
+          <stop offset="100%" stop-color="#F4A565"/>
+        </linearGradient>
+        <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2A8C8F"/>
+          <stop offset="100%" stop-color="#0E3B43"/>
+        </linearGradient>
+        <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFE8A3" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#F7B733" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <rect x="0" y="0" width="400" height="500" fill="url(#skyGrad)"/>
+
+      <g class="scene-fade d1">
+        <circle cx="200" cy="130" r="100" fill="url(#sunGlow)"/>
+        <g class="sun-rays">
+          <line x1="246" y1="130" x2="284" y2="130" stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="233" y1="163" x2="259" y2="189" stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="200" y1="176" x2="200" y2="214" stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="167" y1="163" x2="141" y2="189" stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="154" y1="130" x2="116" y2="130" stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="167" y1="97"  x2="141" y2="71"  stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="200" y1="84"  x2="200" y2="46"  stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+          <line x1="233" y1="97"  x2="259" y2="71"  stroke="#F7B733" stroke-width="3" opacity=".5" stroke-linecap="round"/>
+        </g>
+        <circle cx="200" cy="130" r="42" fill="#F7B733"/>
+      </g>
+
+      <path class="scene-fade d2" d="M0,222 L18,186 L34,222 L52,174 L70,222 L88,192 L106,222 L124,166 L142,222 L160,188 L178,222 L196,196 L214,222 L232,172 L250,222 L268,190 L286,222 L304,168 L322,222 L340,194 L358,222 L376,180 L400,222 Z" fill="#1F3A2E"/>
+
+      <rect class="scene-fade d3" x="0" y="218" width="400" height="282" fill="url(#waterGrad)"/>
+
+      <g class="scene-fade d3" opacity="0.5">
+        <rect x="170" y="220" width="60" height="14" fill="#F7B733" opacity="0.5"/>
+        <rect x="178" y="238" width="44" height="10" fill="#F7B733" opacity="0.4"/>
+        <rect x="184" y="252" width="32" height="8" fill="#F7B733" opacity="0.3"/>
+        <rect x="188" y="264" width="24" height="6" fill="#F7B733" opacity="0.2"/>
+      </g>
+
+      <g class="scene-fade d3" opacity=".3" stroke="#FCEBC8" stroke-width="2" fill="none">
+        <path d="M-10,285 Q15,279 40,285 T90,285 T140,285 T190,285 T240,285 T290,285 T340,285 T390,285 T440,285"/>
+        <path d="M15,318 Q40,312 65,318 T115,318 T165,318 T215,318 T265,318 T315,318 T365,318 T415,318" opacity=".8"/>
+        <path d="M-10,351 Q15,345 40,351 T90,351 T140,351 T190,351 T240,351 T290,351 T340,351 T390,351 T440,351" opacity=".6"/>
+        <path d="M15,384 Q40,378 65,384 T115,384 T165,384 T215,384 T265,384 T315,384 T365,384 T415,384" opacity=".4"/>
+      </g>
+
+      <g class="scene-fade d4">
+        <rect x="0" y="410" width="150" height="16" fill="#8B5A2B"/>
+        <rect x="10" y="426" width="8" height="64" fill="#5C3A1E"/>
+        <rect x="70" y="426" width="8" height="64" fill="#5C3A1E"/>
+        <rect x="130" y="426" width="8" height="64" fill="#5C3A1E"/>
+        <g stroke="#5C3A1E" stroke-width="1.5" opacity=".5">
+          <line x1="20" y1="410" x2="20" y2="426"/>
+          <line x1="40" y1="410" x2="40" y2="426"/>
+          <line x1="60" y1="410" x2="60" y2="426"/>
+          <line x1="80" y1="410" x2="80" y2="426"/>
+          <line x1="100" y1="410" x2="100" y2="426"/>
+          <line x1="120" y1="410" x2="120" y2="426"/>
+          <line x1="140" y1="410" x2="140" y2="426"/>
+        </g>
+        <circle cx="150" cy="402" r="10" fill="none" stroke="#E8552A" stroke-width="4"/>
+        <circle cx="150" cy="402" r="10" fill="none" stroke="#FBF3E1" stroke-width="4" stroke-dasharray="6 9"/>
+      </g>
+
+      <path id="rope" class="rope scene-fade d5" d="M225,384 Q193,396 161,378" fill="none" stroke="#FBF3E1" stroke-width="2"/>
+
+      <g class="skier-group">
+        <g transform="translate(135,375)">
+          <ellipse class="spray" cx="-6" cy="34" rx="11" ry="4" fill="#FCEBC8" opacity="0.75"/>
+          <ellipse class="spray" cx="15" cy="36" rx="9" ry="3.5" fill="#FCEBC8" opacity="0.65"/>
+          <circle cx="6" cy="-4" r="6" fill="#FBF3E1"/>
+          <path d="M6,2 L2,18 M2,18 L-8,30 M2,18 L14,30 M6,2 L18,-2" stroke="#FBF3E1" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <g class="scene-fade d5" transform="translate(225,360)">
+        <g class="boat-group">
+          <ellipse class="wake" cx="-15" cy="32" rx="22" ry="5" fill="#FCEBC8" opacity="0.35"/>
+          <ellipse class="wake" cx="-32" cy="36" rx="16" ry="4" fill="#FCEBC8" opacity="0.25"/>
+          <path d="M0,22 L70,22 Q78,22 75,30 L68,36 L8,36 Q0,36 0,28 Z" fill="#FBF3E1" stroke="#0E3B43" stroke-width="2"/>
+          <rect x="22" y="6" width="22" height="18" rx="3" fill="#E8552A"/>
+          <rect x="24" y="2" width="18" height="8" rx="2" fill="#0E3B43" opacity="0.85"/>
+          <line x1="66" y1="2" x2="66" y2="-14" stroke="#0E3B43" stroke-width="2"/>
+          <path d="M66,2 L66,-14 L80,-7 Z" fill="#E8552A"/>
+        </g>
+      </g>
+    </svg>
+
+    <div class="fireflies" aria-hidden="true">
+      <span style="left:18%;top:30%;animation-delay:0s;"></span>
+      <span style="left:72%;top:38%;animation-delay:.8s;"></span>
+      <span style="left:46%;top:22%;animation-delay:1.6s;"></span>
+      <span style="left:84%;top:48%;animation-delay:2.3s;"></span>
+    </div>
+
+    <button class="boat-hit" id="boatHit" aria-label="Tap the boat to celebrate Father's Day"></button>
+
+    <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
+
+    <div class="hero-overlay">
+      <p class="eyebrow">Dock No. 1 · Lake Days Forever</p>
+      <h1 class="headline">Happy<span class="accent">Father's Day</span></h1>
+      <p class="tap-hint">↳ tap the boat</p>
+    </div>
+  </section>
+
+  <!-- ✏️ Personalize: edit the message below, or just edit it live in the browser before sharing. -->
+  <section class="message-section">
+    <div class="postcard">
+      <label for="message">Your message</label>
+      <textarea id="message" class="message-input" rows="6">Dad, every summer on the lake with you is one for the record books — boat rides at sunset, your terrible-but-amazing ski tricks, and somehow always knowing exactly when the fish are biting. Thank you for teaching me to love the water as much as you do.
+
+Happy Father's Day — here's to many more lake days ahead.
+
+Love, Your Name</textarea>
+    </div>
+  </section>
+
+  <footer>
+    <svg class="wave-divider" viewBox="0 0 200 16" aria-hidden="true">
+      <path d="M0,8 Q12,2 25,8 T50,8 T75,8 T100,8 T125,8 T150,8 T175,8 T200,8" fill="none" stroke="#F7B733" stroke-width="2" opacity=".7"/>
+    </svg>
+    <!-- ✏️ Personalize: change "Your Name" to who this is from -->
+    <p class="signature">With love, <span class="sig-name" contenteditable="true" role="textbox" aria-label="Your name">Your Name</span></p>
+    <p class="stamp">Father's Day · <span id="year"></span></p>
+  </footer>
+
+</main>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  window.addEventListener('load', function(){
+    document.body.classList.add('loaded');
+  });
+
+  var hero = document.getElementById('hero');
+  var boatHit = document.getElementById('boatHit');
+  var confettiLayer = document.getElementById('confettiLayer');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var celebrating = false;
+
+  var colors = ['#F7B733', '#E8552A', '#FCEBC8', '#2A8C8F'];
+
+  function spawnConfetti(count){
+    for (var i = 0; i < count; i++){
+      var piece = document.createElement('span');
+      piece.className = 'confetti-piece';
+      var left = 20 + Math.random() * 60;
+      var dx = (Math.random() * 120 - 60) + 'px';
+      var rot = (Math.random() * 360 + 180) + 'deg';
+      var duration = (1.1 + Math.random() * 0.7) + 's';
+      var delay = (Math.random() * 0.2) + 's';
+      piece.style.left = left + '%';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.setProperty('--dx', dx);
+      piece.style.setProperty('--rot', rot);
+      piece.style.animationDuration = duration;
+      piece.style.animationDelay = delay;
+      piece.style.borderRadius = (Math.random() > 0.5) ? '50%' : '2px';
+      confettiLayer.appendChild(piece);
+      (function(el){
+        setTimeout(function(){ el.remove(); }, 2200);
+      })(piece);
+    }
+  }
+
+  function celebrate(){
+    if (celebrating) return;
+    celebrating = true;
+    hero.classList.add('celebrating');
+    hero.classList.add('interacted');
+    if (!reduceMotion){
+      spawnConfetti(34);
+    }
+    setTimeout(function(){
+      hero.classList.remove('celebrating');
+      celebrating = false;
+    }, 2700);
+  }
+
+  boatHit.addEventListener('click', celebrate);
+  boatHit.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' '){
+      e.preventDefault();
+      celebrate();
+    }
+  });
+
+  var messageInput = document.getElementById('message');
+  function autoResize(){
+    messageInput.style.height = 'auto';
+    messageInput.style.height = messageInput.scrollHeight + 'px';
+  }
+  messageInput.addEventListener('input', autoResize);
+  window.addEventListener('load', autoResize);
+</script>
+</body>
+</html>
