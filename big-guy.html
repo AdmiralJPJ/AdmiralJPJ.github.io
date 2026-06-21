@@ -100,14 +100,16 @@
 
   .boat-hit{
     position:absolute;
-    left:63%; top:74%;
-    width:34%; height:16%;
+    left:50%; top:68%;
+    width:72%; height:32%;
     transform:translate(-50%,-50%);
     background:transparent;
     border:none;
     padding:0; margin:0;
     cursor:pointer;
-    z-index:3;
+    z-index:10;
+    pointer-events:auto;
+    touch-action:manipulation;
     -webkit-tap-highlight-color:transparent;
   }
   .boat-hit:focus-visible{
@@ -144,9 +146,8 @@
   .skier-group{
     opacity:0;
     transform:translateX(-26px);
-    transition:opacity .7s ease .25s, transform .7s ease .25s;
   }
-  .hero.celebrating .skier-group{opacity:1; transform:translateX(0);}
+  .hero.celebrating .skier-group{animation:skierDash 2.6s ease-in-out forwards;}
   .hero.celebrating .spray{animation:sprayBounce .45s ease-in-out infinite alternate;}
 
   .rope{
@@ -245,9 +246,15 @@
   @keyframes twinkle{ 0%,100%{opacity:.15;} 50%{opacity:.9;} }
   @keyframes boatDash{
     0%{transform:translate(0,0) rotate(-1deg);}
-    30%{transform:translate(60px,-5px) rotate(1deg);}
-    60%{transform:translate(118px,2px) rotate(-1deg);}
-    100%{transform:translate(140px,0) rotate(0deg);}
+    25%{transform:translate(70px,-6px) rotate(1deg);}
+    55%{transform:translate(150px,2px) rotate(-1deg);}
+    100%{transform:translate(230px,-3px) rotate(1deg);}
+  }
+  @keyframes skierDash{
+    0%{opacity:0; transform:translateX(-26px);}
+    15%{opacity:1; transform:translateX(10px);}
+    55%{opacity:1; transform:translateX(150px);}
+    100%{opacity:1; transform:translateX(255px);}
   }
   @keyframes sprayBounce{
     0%{transform:translateY(0) scaleY(1); opacity:.75;}
@@ -263,16 +270,23 @@
     0%{transform:translate(0,0) rotate(0deg); opacity:1;}
     100%{transform:translate(var(--dx,0px), 260px) rotate(var(--rot,360deg)); opacity:0;}
   }
+  @keyframes confettiFadeStatic{
+    0%{opacity:1;}
+    100%{opacity:0;}
+  }
 
   @media (prefers-reduced-motion: reduce){
-    .boat-group, .skier-group, .sun-rays, .spray, .headline, .scene-fade, .confetti-piece{
+    .boat-group, .skier-group, .sun-rays, .spray, .scene-fade{
       animation:none !important;
-      transition:none !important;
     }
     .scene-fade{opacity:1; transform:none;}
-    .skier-group{opacity:0;}
+    .skier-group{opacity:0; transition:opacity .4s ease;}
     .hero.celebrating .skier-group{opacity:1;}
+    .hero.celebrating .boat-group{opacity:.7; transition:opacity .3s ease;}
+    .hero.celebrating .headline{animation:none; color:var(--sun-gold); transition:color .3s ease;}
+    .confetti-piece{animation:confettiFadeStatic 1s ease-out forwards !important;}
   }
+
 </style>
 </head>
 <body>
@@ -331,28 +345,30 @@
         <path d="M15,384 Q40,378 65,384 T115,384 T165,384 T215,384 T265,384 T315,384 T365,384 T415,384" opacity=".4"/>
       </g>
 
-      <g class="scene-fade d4">
-        <rect x="0" y="410" width="150" height="16" fill="#8B5A2B"/>
-        <rect x="10" y="426" width="8" height="64" fill="#5C3A1E"/>
-        <rect x="70" y="426" width="8" height="64" fill="#5C3A1E"/>
-        <rect x="130" y="426" width="8" height="64" fill="#5C3A1E"/>
-        <g stroke="#5C3A1E" stroke-width="1.5" opacity=".5">
-          <line x1="20" y1="410" x2="20" y2="426"/>
-          <line x1="40" y1="410" x2="40" y2="426"/>
-          <line x1="60" y1="410" x2="60" y2="426"/>
-          <line x1="80" y1="410" x2="80" y2="426"/>
-          <line x1="100" y1="410" x2="100" y2="426"/>
-          <line x1="120" y1="410" x2="120" y2="426"/>
-          <line x1="140" y1="410" x2="140" y2="426"/>
+      <g transform="translate(0,-38)">
+        <g class="scene-fade d4">
+          <rect x="0" y="410" width="150" height="16" fill="#8B5A2B"/>
+          <rect x="10" y="426" width="8" height="64" fill="#5C3A1E"/>
+          <rect x="70" y="426" width="8" height="64" fill="#5C3A1E"/>
+          <rect x="130" y="426" width="8" height="64" fill="#5C3A1E"/>
+          <g stroke="#5C3A1E" stroke-width="1.5" opacity=".5">
+            <line x1="20" y1="410" x2="20" y2="426"/>
+            <line x1="40" y1="410" x2="40" y2="426"/>
+            <line x1="60" y1="410" x2="60" y2="426"/>
+            <line x1="80" y1="410" x2="80" y2="426"/>
+            <line x1="100" y1="410" x2="100" y2="426"/>
+            <line x1="120" y1="410" x2="120" y2="426"/>
+            <line x1="140" y1="410" x2="140" y2="426"/>
+          </g>
+          <circle cx="150" cy="402" r="10" fill="none" stroke="#E8552A" stroke-width="4"/>
+          <circle cx="150" cy="402" r="10" fill="none" stroke="#FBF3E1" stroke-width="4" stroke-dasharray="6 9"/>
         </g>
-        <circle cx="150" cy="402" r="10" fill="none" stroke="#E8552A" stroke-width="4"/>
-        <circle cx="150" cy="402" r="10" fill="none" stroke="#FBF3E1" stroke-width="4" stroke-dasharray="6 9"/>
       </g>
 
-      <path id="rope" class="rope scene-fade d5" d="M225,384 Q193,396 161,378" fill="none" stroke="#FBF3E1" stroke-width="2"/>
+      <path id="rope" class="rope scene-fade d5" d="M225,346 Q193,358 161,340" fill="none" stroke="#FBF3E1" stroke-width="2"/>
 
       <g class="skier-group">
-        <g transform="translate(135,375)">
+        <g transform="translate(135,337)">
           <ellipse class="spray" cx="-6" cy="34" rx="11" ry="4" fill="#FCEBC8" opacity="0.75"/>
           <ellipse class="spray" cx="15" cy="36" rx="9" ry="3.5" fill="#FCEBC8" opacity="0.65"/>
           <circle cx="6" cy="-4" r="6" fill="#FBF3E1"/>
@@ -360,15 +376,17 @@
         </g>
       </g>
 
-      <g class="scene-fade d5" transform="translate(225,360)">
-        <g class="boat-group">
-          <ellipse class="wake" cx="-15" cy="32" rx="22" ry="5" fill="#FCEBC8" opacity="0.35"/>
-          <ellipse class="wake" cx="-32" cy="36" rx="16" ry="4" fill="#FCEBC8" opacity="0.25"/>
-          <path d="M0,22 L70,22 Q78,22 75,30 L68,36 L8,36 Q0,36 0,28 Z" fill="#FBF3E1" stroke="#0E3B43" stroke-width="2"/>
-          <rect x="22" y="6" width="22" height="18" rx="3" fill="#E8552A"/>
-          <rect x="24" y="2" width="18" height="8" rx="2" fill="#0E3B43" opacity="0.85"/>
-          <line x1="66" y1="2" x2="66" y2="-14" stroke="#0E3B43" stroke-width="2"/>
-          <path d="M66,2 L66,-14 L80,-7 Z" fill="#E8552A"/>
+      <g transform="translate(225,322)">
+        <g class="scene-fade d5">
+          <g class="boat-group">
+            <ellipse class="wake" cx="-15" cy="32" rx="22" ry="5" fill="#FCEBC8" opacity="0.35"/>
+            <ellipse class="wake" cx="-32" cy="36" rx="16" ry="4" fill="#FCEBC8" opacity="0.25"/>
+            <path d="M0,22 L70,22 Q78,22 75,30 L68,36 L8,36 Q0,36 0,28 Z" fill="#FBF3E1" stroke="#0E3B43" stroke-width="2"/>
+            <rect x="22" y="6" width="22" height="18" rx="3" fill="#E8552A"/>
+            <rect x="24" y="2" width="18" height="8" rx="2" fill="#0E3B43" opacity="0.85"/>
+            <line x1="66" y1="2" x2="66" y2="-14" stroke="#0E3B43" stroke-width="2"/>
+            <path d="M66,2 L66,-14 L80,-7 Z" fill="#E8552A"/>
+          </g>
         </g>
       </g>
     </svg>
@@ -385,7 +403,7 @@
     <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
 
     <div class="hero-overlay">
-      <p class="eyebrow">Dock No. 1 · Lake Days Forever</p>
+      <p class="eyebrow">To the big guy himself</p>
       <h1 class="headline">Happy<span class="accent">Father's Day</span></h1>
       <p class="tap-hint">↳ tap the boat</p>
     </div>
@@ -394,12 +412,12 @@
   <!-- ✏️ Personalize: edit the message below, or just edit it live in the browser before sharing. -->
   <section class="message-section">
     <div class="postcard">
-      <label for="message">Your message</label>
-      <textarea id="message" class="message-input" rows="6">Dad, every summer on the lake with you is one for the record books — boat rides at sunset, your terrible-but-amazing ski tricks, and somehow always knowing exactly when the fish are biting. Thank you for teaching me to love the water as much as you do.
+      <label for="message">To Mr. Pops,</label>
+      <textarea id="message" class="message-input" rows="6">Happy Birthday! Man, it must be nice being a dad, because then you get two birthdays every year. All for the low low price of however much kids cost these days. Can't be that much.
 
-Happy Father's Day — here's to many more lake days ahead.
+Anyway, until AI can reproduce Cyclone instantly, I made this website (or the world did, with its data? Idk man)
 
-Love, Your Name</textarea>
+Happy Father's Day, and I'll see you at the lake soon! Love, Johnass</textarea>
     </div>
   </section>
 
@@ -457,9 +475,7 @@ Love, Your Name</textarea>
     celebrating = true;
     hero.classList.add('celebrating');
     hero.classList.add('interacted');
-    if (!reduceMotion){
-      spawnConfetti(34);
-    }
+    spawnConfetti(reduceMotion ? 12 : 34);
     setTimeout(function(){
       hero.classList.remove('celebrating');
       celebrating = false;
